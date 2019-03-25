@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const constants = require('../constants.js');
 
-const chanllengeSchema = new mongoose.Schema({
+const challengeSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -16,18 +16,19 @@ const chanllengeSchema = new mongoose.Schema({
     required: true
   },
   owner: {
-    type: mongoose.Schema.type.ObjectId,
-    ref: 'User'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
-  location: {
-    type: {
-      type: String,
-      default: 'Point'
-    },
-    coordinates: {
-      type: [Number]
-    }
-  },
+  // location: {
+  //   type: {
+  //     type: String,
+  //     default: 'Point'
+  //   },
+  //   coordinates: {
+  //     type: [Number]
+  //   }
+  // },
   likes: {
     type: Number,
     default: 0
@@ -100,9 +101,10 @@ challengeSchema.index({location: '2dsphere'});
 
 
 const Challenge = mongoose.model('Challenge', challengeSchema);
-const PunctualChallenge = Challenge.discriminator('PeriodicChallenge', punctualChallengeSchema);
+const PunctualChallenge = Challenge.discriminator('PunctualChallenge', punctualChallengeSchema);
 const PeriodicChallenge = Challenge.discriminator('PeriodicChallenge', periodicChallengeSchema);
-const ExpirationChallenge = Challenge.discriminator('PeriodicChallenge', expirationChallengeSchema);
+const ExpirationChallenge = Challenge.discriminator('ExpirationChallenge', expirationChallengeSchema);
 
 
 module.exports = { Challenge, PunctualChallenge, PeriodicChallenge, ExpirationChallenge};
+// module.exports = Challenge;

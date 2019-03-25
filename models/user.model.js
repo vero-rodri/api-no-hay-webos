@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const constants = require('../constants.js');
+const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
   nickName: {
@@ -37,6 +38,29 @@ const UserSchema = new mongoose.Schema({
     }
   }
 });
+
+UserSchema.pre('save', function() {
+ const user = this;
+
+ if (!user.isModified('password')) {
+   next();
+ } else {
+   bcrypt.genSalt(constants.SALT_WORK_FACTOR)
+    .then( salt => {
+      return bcrypt.hash(user.password, salt)
+        .then(hash => {
+          user.password = hash;
+          next();
+        })
+    })
+    .catch(next)
+ }
+})
+
+UserSchema.methods.checkPassword = function(password) {
+  bcrypt.compare(password, this.password)
+}
+
 
 const User = mongoose.model('User', UserSchema);
 

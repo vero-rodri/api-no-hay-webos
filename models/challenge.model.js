@@ -41,6 +41,7 @@ const chanllengeSchema = new mongoose.Schema({
     enum: constants.CATEGORIES_CHALLENGE
   }
 }, {
+  discriminatorKey: 'kind',
   timestamps: true,
   toJSON: (doc, ret) => {
     virtuals: true,
@@ -50,6 +51,42 @@ const chanllengeSchema = new mongoose.Schema({
     return ret;
   }
 });
+
+
+const punctualChallengeSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    required: true,
+  }
+}, {
+  discriminatorKey: 'kind',
+})
+
+const periodicChallengeSchema = new mongoose.Schema({
+  periodicity: {
+    type: Number,
+    required: true,
+    maxlength: 30
+  },
+  duration : {
+    type: Number,
+    required: true,
+    maxlength: 365
+  }
+}, {
+  discriminatorKey: 'kind',
+})
+
+const expirationChallengeSchema = new mongoose.Schema({
+  duration : {
+    type: Number,
+    required: true,
+    maxlength: 365
+  }
+}, {
+  discriminatorKey: 'kind',
+})
+
 
 challengeSchema.virtual('usersChallenge', {
   ref: 'UserChallenge',
@@ -61,6 +98,11 @@ challengeSchema.virtual('usersChallenge', {
 
 challengeSchema.index({location: '2dsphere'});
 
-const Challenge = mongoose.model('Challenge', chanllengeSchema);
 
-module.exports = Challenge;
+const Challenge = mongoose.model('Challenge', challengeSchema);
+const PunctualChallenge = Challenge.discriminator('PeriodicChallenge', punctualChallengeSchema);
+const PeriodicChallenge = Challenge.discriminator('PeriodicChallenge', periodicChallengeSchema);
+const ExpirationChallenge = Challenge.discriminator('PeriodicChallenge', expirationChallengeSchema);
+
+
+module.exports = { Challenge, PunctualChallenge, PeriodicChallenge, ExpirationChallenge};

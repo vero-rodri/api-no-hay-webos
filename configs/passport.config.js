@@ -12,6 +12,7 @@ passport.deserializeUser(function(id, next) {
   });
 });
 
+
 passport.use('auth-local', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
@@ -19,7 +20,7 @@ passport.use('auth-local', new LocalStrategy({
   function(email, password, next) {
     User.findOne({ email: email }, function (err, user) {
       if (err) { return next(err); }
-      if (!user) { return next(null, false, { message: 'email or password incorrect'}); }
+      if (!user) { return next(null, false, { message: '1mail or password incorrect'}); }
       if (!user.checkPassword(password)) { return next(null, false, { message: 'email or password incorrect'}); }
       return next(null, user);
     });

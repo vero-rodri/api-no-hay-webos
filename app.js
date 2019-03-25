@@ -1,12 +1,13 @@
 require('dotenv').config();
-require('./configs/db.config');
-require('./configs/passport.config');
-
 const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
+const session = require('./configs/session.config');
+
+require('./configs/passport.config');
+require('./configs/db.config');
 
 const authRouter = require('./routes/auth.route');
 
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//app.use(session);
+app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -36,7 +37,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({message: err.message, error: err});
 });
 
 module.exports = app;

@@ -34,31 +34,31 @@ const UserSchema = new mongoose.Schema({
       ret.id = doc._id;
       delete ret._id;
       delete ret.__v;
-      delete password;
+      delete ret.password;
     }
   }
 });
 
-UserSchema.pre('save', function() {
- const user = this;
-
- if (!user.isModified('password')) {
-   next();
- } else {
-   bcrypt.genSalt(constants.SALT_WORK_FACTOR)
+UserSchema.pre('save', function(next) {
+  const user = this;
+  if (!user.isModified('password')) {
+    next();
+  } else {
+    bcrypt.genSalt(constants.SALT_WORK_FACTOR)
     .then( salt => {
       return bcrypt.hash(user.password, salt)
-        .then(hash => {
-          user.password = hash;
+      .then(hash => {
+        user.password = hash;
+        console.log('user password => ', user.password);
           next();
         })
     })
     .catch(next)
- }
+  }
 })
 
 UserSchema.methods.checkPassword = function(password) {
-  bcrypt.compare(password, this.password)
+  return bcrypt.compare(password, this.password)
 }
 
 

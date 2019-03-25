@@ -1,9 +1,8 @@
-const express = require('express');
+const passport = require('passport');
 const createError = require('http-errors')
 const User = require('../models/user.model');
 
 module.exports.register = (req, res, next) => {
-  res.send('entra a register');
   User.findOne({email: req.body.email})
     .then(user => {
       if (!user) {
@@ -26,12 +25,15 @@ module.exports.authenticate = (req, res, next) => {
       next(createError(401, message));
     } 
     else {
-      res.status(201).json(user);
+      req.login(user, (err) => {
+        if (err) { return next(error)}
+        return res.status(201).json(user)
+      })
     }
-  })
+  })(req, res, next)
 }
 
 module.exports.logout = (req, res, next) => {
   req.logout();
-  res.status(204, 'User logout correctly')
+  res.status(204, 'User logout correctly').json()
 }

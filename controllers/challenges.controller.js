@@ -28,6 +28,14 @@ module.exports.create = (req, res, next) => {
       break;
     }
   }
+  console.log("req lleva ", req);
+
+  if (req.file) {
+    console.log("req.body ", req.body)
+    console.log ("CHALLENGE ", challenge)
+    challenge.photo = req.file.secure_url;
+  }
+
   challenge.save()
     .then(challenge => res.status(201).json(challenge))
     .catch(next)

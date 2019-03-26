@@ -29,6 +29,9 @@ module.exports.createUserChallenge = (req, res, next) => {
 
 module.exports.createEvidence = (req, res, next) => {
   const evidence = new Evidence({ ...req.body, userChallengeId: req.params.id });
+  if (req.file) {
+    evidence.file = req.file.secure_url;
+  }
   evidence.save()
     .then(evidence => res.status(201).json(evidence))
     .catch(next)

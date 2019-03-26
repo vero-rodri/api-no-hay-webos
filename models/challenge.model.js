@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const constants = require('../constants.js');
+const UserChallenge = require('./userChallenge.model')
 
 const challengeSchema = new mongoose.Schema({
   title: {
@@ -22,12 +23,9 @@ const challengeSchema = new mongoose.Schema({
   },
   // location: {
   //   type: {
-  //     type: String,
-  //     default: 'Point'
+  //     type: String
   //   },
-  //   coordinates: {
-  //     type: [Number]
-  //   }
+  //   coordinates: [Number]
   // },
   likes: {
     type: Number,
@@ -44,12 +42,14 @@ const challengeSchema = new mongoose.Schema({
 }, {
   discriminatorKey: 'kind',
   timestamps: true,
-  toJSON: (doc, ret) => {
+  toJSON: {
     virtuals: true,
+    transform: (doc, ret) => {
     ret.id = doc._id;
     delete ret._id;
     delete ret.__v;
     return ret;
+    }
   }
 });
 
@@ -90,7 +90,7 @@ const expirationChallengeSchema = new mongoose.Schema({
 
 
 challengeSchema.virtual('usersChallenge', {
-  ref: 'UserChallenge',
+  ref: UserChallenge.modelName,
   localField: '_id',
   foreignField: 'challengeId',
   justOne: false,
@@ -106,5 +106,4 @@ const PeriodicChallenge = Challenge.discriminator('PeriodicChallenge', periodicC
 const ExpirationChallenge = Challenge.discriminator('ExpirationChallenge', expirationChallengeSchema);
 
 
-module.exports = { Challenge, PunctualChallenge, PeriodicChallenge, ExpirationChallenge};
-// module.exports = Challenge;
+module.exports = { Challenge, PunctualChallenge, PeriodicChallenge, ExpirationChallenge };

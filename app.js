@@ -11,6 +11,8 @@ require('./configs/db.config');
 
 const authRouter = require('./routes/auth.route');
 const challengeRouter = require('./routes/challenge.route');
+const userChallengeRouter = require('./routes/userChallenge.route');
+const evidenceRouter = require('./routes/evidence.route');
 
 const app = express();
 
@@ -25,7 +27,8 @@ app.use(passport.session());
 
 app.use('/', authRouter);
 app.use('/challenges', challengeRouter);
-
+app.use('/user-challenges', userChallengeRouter);
+app.use('/user-challenges', evidenceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

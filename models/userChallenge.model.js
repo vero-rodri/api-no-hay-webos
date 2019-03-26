@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const Evidence = require('./evidence.model');
 
-const userChallengeSchema = new mongoose.model({
-  chanllengeId: {
+const userChallengeSchema = new mongoose.Schema({
+  challengeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Challenge'
   },
@@ -23,21 +24,23 @@ const userChallengeSchema = new mongoose.model({
   }
 }, {
   timestamps: true,
-  toJSON: (doc, ret) => {
+  toJSON: {
     virtuals: true,
+    transform : (doc, ret) => {
     ret.id = doc._id;
     delete ret._id;
     delete ret.__v;
     return ret;
+    }
   }
 });
 
 userChallengeSchema.virtual('evidences', {
-  ref:'Evidence',
+  ref: Evidence.modelName,
   localField: '_id',
   foreignField: 'userChallengeId',
   justOne: false,
-  options: { sort: { createdtAt: -1 }}
+  options: { sort: { createdAt: -1 }}
 })
 
 userChallengeSchema.index({userId: 1});

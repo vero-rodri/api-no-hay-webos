@@ -4,7 +4,7 @@ const userChallengesController = require('../controllers/userChallenges.controll
 const secure = require('../middlewares/secure.mid')
 
 router.get('/', secure.isAuthenticated, userChallengesController.list)
-router.post('/:id', userChallengesController.createEvidence)
-router.get('/:id', userChallengesController.detail)
+router.post('/:id', secure.isAuthenticated, userChallengesController.createEvidence)
+router.get('/:id', secure.isAuthenticated, userChallengesController.detail)
 
 module.exports = router;

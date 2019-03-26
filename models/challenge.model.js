@@ -21,12 +21,12 @@ const challengeSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  // location: {
-  //   type: {
-  //     type: String
-  //   },
-  //   coordinates: [Number]
-  // },
+  location: {
+    type: {
+      type: String
+    },
+    coordinates: [Number]
+  },
   likes: {
     type: Number,
     default: 0
@@ -98,6 +98,14 @@ challengeSchema.virtual('usersChallenge', {
 })
 
 challengeSchema.index({location: '2dsphere'});
+
+
+challengeSchema.pre('save', function(next) {
+  if (this.location.coordinates.length === 0) {
+    this.location = undefined;
+  }
+  next();
+});
 
 
 const Challenge = mongoose.model('Challenge', challengeSchema);

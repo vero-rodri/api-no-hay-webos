@@ -15,16 +15,16 @@ const evidenceSchema = new mongoose.Schema({
   file: {
     type: String,
     required: true
+  },
+  location: {
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number]
+    }
   }
-  // location: {
-  //   type: {
-  //     type: String,
-  //     default: 'Point'
-  //   },
-  //   coordinates: {
-  //     type: [Number]
-  //   }
-  // }
 }, {
   timestamps: true,
   toJSON: {
@@ -38,6 +38,15 @@ const evidenceSchema = new mongoose.Schema({
 });
 
 evidenceSchema.index({location: '2dsphere'});
+
+
+evidenceSchema.pre('save', function(next) {
+  if (this.location.coordinates.length === 0) {
+    this.location = undefined;
+  }
+  next();
+});
+
 
 const Evidence = mongoose.model('Evidence', evidenceSchema);
 

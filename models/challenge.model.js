@@ -21,12 +21,15 @@ const challengeSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  // location: {
-  //   type: {
-  //     type: String
-  //   },
-  //   coordinates: [Number]
-  // },
+  location: {
+    type: {
+      type: String,
+      default: "Point"
+    },
+    coordinates: {
+      type: [Number]
+    }
+  },
   likes: {
     type: Number,
     default: 0

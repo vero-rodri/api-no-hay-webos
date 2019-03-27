@@ -9,6 +9,11 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
+ /*  if (!req.body.location) {
+    req.body.location = {type: 'Point', coordinates: [-94.9903, 39.7392]} 
+  } */
+  console.log("el req.body => ", req.body.body)
+
   let challenge;
   switch ( req.body.type ) {
     case 'default': {

@@ -11,8 +11,8 @@ cloudinary.config({
   const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: 'NoHayWebos',
-  resource_type: 'auto'
-  //allowedFormats: ['jpg', 'png', 'mp4'],
+  //resource_type: 'video',
+  allowedFormats: ['mp4','jpg','webm','ogg'],
   //transformation: [{ width: 500, height: 500, crop: 'limit' }]
   });
 

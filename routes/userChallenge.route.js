@@ -4,8 +4,12 @@ const userChallengesController = require('../controllers/userChallenges.controll
 const secure = require('../middlewares/secure.mid');
 const parser = require('../configs/storage.config');
 
-router.get('/', secure.isAuthenticated, userChallengesController.list);
-router.post('/:id', secure.isAuthenticated, parser.single('fileEvidence'), userChallengesController.createEvidence);
-router.get('/:id', secure.isAuthenticated, userChallengesController.detail);
+router.get('/:challengeId/user-challenges/', secure.isAuthenticated, userChallengesController.list);
+router.post('/:challengeId/user-challenges/', secure.isAuthenticated, userChallengesController.create)
+router.get('/:challengeId/user-challenges/:id', secure.isAuthenticated, userChallengesController.detail);
+router.delete('/:challengeId/user-challenges/:id', secure.isAuthenticated, secure.canDelete, userChallengesController.delete)
 
+
+
+//router.post('/:id', secure.isAuthenticated, secure.isOwner, parser.single('fileEvidence'), userChallengesController.createEvidence);
 module.exports = router;

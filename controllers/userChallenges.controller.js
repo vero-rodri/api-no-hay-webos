@@ -16,9 +16,10 @@ module.exports.detail = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.createUserChallenge = (req, res, next) => {
+
+module.exports.create = (req, res, next) => {
   const userChallenge = new UserChallenge({
-    challengeId: req.params.id,
+    challengeId: req.params.challengeId,
     userId: req.user.id
   })
 
@@ -27,12 +28,15 @@ module.exports.createUserChallenge = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.createEvidence = (req, res, next) => {
-  const evidence = new Evidence({ ...req.body, userChallengeId: req.params.id });
-  if (req.file) {
-    evidence.file = req.file.secure_url;
-  }
-  evidence.save()
-    .then(evidence => res.status(201).json(evidence))
+module.exports.delete = (req, res, next) => {
+  console.log("challenge ", req.params.challengeId);
+  console.log("el user-challenge ", req.params.id);
+  UserChallenge.findByIdAndDelete(req.params.id)
+    .then(userChallenge => {
+      console.log("el userChallenge es ", userChallenge)
+      return Evidence.deleteMany({userChallengeId: userChallenge.id})
+        .then(() => res.status(204).json())
+    })
     .catch(next)
 }
+

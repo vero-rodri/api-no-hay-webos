@@ -7,6 +7,9 @@ module.exports.register = (req, res, next) => {
     .then(user => {
       if (!user) {
         const user = new User(req.body)
+        if (req.file) {
+          user.avatarURL = req.file.secure_url;
+        }
         return user.save()
       } else {
         throw createError(409, 'email already registered');

@@ -1,35 +1,32 @@
-const createError = require('http-errors')
+const createError = require('http-errors');
 const { Challenge, PunctualChallenge, PeriodicChallenge, ExpirationChallenge } = require('../models/challenge.model');
-const UserChallenge = require('../models/userChallenge.model')
+const UserChallenge = require('../models/userChallenge.model');
+const Evidence = require('../models/evidence.model');
 
 module.exports.list = (req, res, next) => {
   Challenge.find()
+    .populate('usersChallenge')
     .then(challenges => res.status(200).json(challenges))
     .catch(next)
 }
 
 module.exports.create = (req, res, next) => {
- /*  if (!req.body.location) {
-    req.body.location = {type: 'Point', coordinates: [-94.9903, 39.7392]} 
-  } */
-  console.log("el req.body => ", req.body.body)
-
   let challenge;
   switch ( req.body.type ) {
     case 'default': {
-       challenge = new Challenge(req.body);
+       challenge = new Challenge({...req.body, owner:req.user.id});
       break;
     }
     case 'punctual': {
-      challenge = new PunctualChallenge(req.body);
+      challenge = new PunctualChallenge({...req.body, owner:req.user.id});
       break;
     }
     case 'periodic': {
-      challenge = new PeriodicChallenge(req.body);
+      challenge = new PeriodicChallenge({...req.body, owner:req.user.id});
       break;
     }
     case 'expiration': {
-      challenge = new ExpirationChallenge(req.body);
+      challenge = new ExpirationChallenge({...req.body, owner:req.user.id});
       break;
     }
   }
@@ -53,19 +50,4 @@ module.exports.detail = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.createUserChallenge = (req, res, next) => {
-  const userChallenge = new UserChallenge({
-    challengeId: req.params.id,
-    userId: req.user.id
-  })
 
-  userChallenge.save()
-    .then( userChallenge => res.status(201).json(userChallenge))
-    .catch(next)
-}
-
-module.exports.deleteUserChallenge = (req, res, next) => {
-  UserChallenge.findOneAndDelete({challengeId: req.params.id, userId: req.body.userId })
-    .then(() => res.status(204).json())
-    .catch(next)
-}

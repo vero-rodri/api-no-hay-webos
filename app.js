@@ -27,8 +27,8 @@ app.use(passport.session());
 
 app.use('/', authRouter);
 app.use('/challenges', challengeRouter);
-app.use('/user-challenges', userChallengeRouter);
-app.use('/user-challenges', evidenceRouter);
+app.use('/challenges', userChallengeRouter);
+app.use('/challenges/:challengeId/user-challenges', evidenceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -16,15 +16,6 @@ const evidenceSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-  // location: {
-  //   type: {
-  //     type: String,
-  //     default: 'Point'
-  //   },
-  //   coordinates: {
-  //     type: [Number]
-  //   }
-  // }
 }, {
   timestamps: true,
   toJSON: {

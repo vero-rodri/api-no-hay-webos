@@ -21,6 +21,15 @@ const userChallengeSchema = new mongoose.Schema({
   likes: {
     type: Number,
     default: 0
+  },
+  location: {
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number]
+    }
   }
 }, {
   timestamps: true,

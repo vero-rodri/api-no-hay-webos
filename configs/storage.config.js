@@ -12,7 +12,7 @@ cloudinary.config({
   cloudinary: cloudinary,
   folder: 'NoHayWebos',
   //resource_type: 'video',
-  allowedFormats: ['mp4','jpg','webm','ogg'],
+  //allowedFormats: ['mp4','jpg','webm','ogg'],
   //transformation: [{ width: 500, height: 500, crop: 'limit' }]
   });
 

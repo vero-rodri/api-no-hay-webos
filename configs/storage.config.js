@@ -15,7 +15,7 @@ const storage = cloudinaryStorage({
   params: {
     resource_type: 'auto',
     allowedFormats: ['mp4','webm','jpg'],
-    //forder:"videos"
+    //folder:"videos"
   }
 
   //resource_type: 'video',

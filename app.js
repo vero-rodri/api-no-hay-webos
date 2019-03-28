@@ -5,11 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const session = require('./configs/session.config');
-<<<<<<< HEAD
 const cors = require('./configs/cors.config');
-=======
-const cors = require('./configs/cors.config')
->>>>>>> 3b0789b2b2cd4aae90d3fe603d4cf342ed02fea3
 
 require('./configs/passport.config');
 require('./configs/db.config');

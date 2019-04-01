@@ -20,8 +20,8 @@ passport.use('auth-local', new LocalStrategy({
   function(email, password, next) {
     User.findOne({ email: email }, function (err, user) {
       if (err) { return next(err); }
-      if (!user) { return next(null, false, { message: '1mail or password incorrect'}); }
-      if (!user.checkPassword(password)) { return next(null, false, { message: 'email or password incorrect'}); }
+      if (!user) { return next(null, false, { message: 'non_existent_email'}); }
+      if (!user.checkPassword(password)) { return next(null, false, { message: 'invalid_password'}); }
       return next(null, user);
     });
   }

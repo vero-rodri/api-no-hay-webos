@@ -12,11 +12,6 @@ module.exports.isAuthenticated = (req, res, next) => {
 
 module.exports.isOwner = (req, res, next) => {
 
-  console.log("\n EN EL MIDDLEWERE LLEGA...", req.params)
-
-  console.log("el usuario de session es", req.user.id)
-  console.log("\n y el USERCHALLENGE...", req.params.userChallengeId);
-
   UserChallenge.findById(req.params.userChallengeId)
     .then(userChallenge => {
       console.log("y el user id => ", userChallenge.userId)
@@ -30,16 +25,12 @@ module.exports.isOwner = (req, res, next) => {
 
 module.exports.canDelete = (req, res, next) => {
 
-  //console.log("\n y el id CHALLENGE:...", req.params.challengeId);
-  
-  
   Challenge.findById(req.params.challengeId)
   .then(challenge => {
     console.log(challenge.owner.toString())
     console.log(req.user.id.toString())
     console.log(challenge.owner.toString() == req.user.id.toString())
       if (challenge.owner.toString() === req.user.id) {
-        console.log("el reto es del usuario logado")
         next();
       } else {
         next(createError(403));

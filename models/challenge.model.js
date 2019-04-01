@@ -6,11 +6,11 @@ const challengeSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    maxlength: 50,
+    maxlength: [50, 'maxLength_excedeed']
   },
   photo: {
     type: String,
-    required: true
+    required: [true, 'photo_required']
   },
   description: {
     type: String,

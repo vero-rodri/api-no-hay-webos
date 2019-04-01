@@ -7,7 +7,7 @@ const evidenceSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: true
+    required: [true, 'title_required']
   },
   description: {
     type: String
@@ -28,7 +28,6 @@ const evidenceSchema = new mongoose.Schema({
   }
 });
 
-evidenceSchema.index({location: '2dsphere'});
 
 const Evidence = mongoose.model('Evidence', evidenceSchema);
 

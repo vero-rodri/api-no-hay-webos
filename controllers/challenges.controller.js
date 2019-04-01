@@ -5,6 +5,7 @@ const Evidence = require('../models/evidence.model');
 
 module.exports.list = (req, res, next) => {
   Challenge.find()
+    .populate('owner')
     .populate('usersChallenge')
     .then(challenges => res.status(200).json(challenges))
     .catch(next)

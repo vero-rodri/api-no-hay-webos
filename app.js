@@ -5,18 +5,15 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const session = require('./configs/session.config');
-<<<<<<< HEAD
 const cors = require('./configs/cors.config');
-=======
-const cors = require('./configs/cors.config')
->>>>>>> 3b0789b2b2cd4aae90d3fe603d4cf342ed02fea3
 
 require('./configs/passport.config');
 require('./configs/db.config');
 
 const authRouter = require('./routes/auth.route');
 const challengeRouter = require('./routes/challenge.route');
-const userChallengeRouter = require('./routes/userChallenge.route');
+const userChallengeRouter = require('./routes/userChallenge.route')
+const userChallengeByChallengeRouter = require('./routes/userChallengeByChallenge.route');
 const evidenceRouter = require('./routes/evidence.route');
 
 const app = express();
@@ -33,8 +30,9 @@ app.use(passport.session());
 
 app.use('/', authRouter);
 app.use('/challenges', challengeRouter);
-app.use('/challenges', userChallengeRouter);
+app.use('/challenges', userChallengeByChallengeRouter);
 app.use('/challenges/:challengeId/user-challenges', evidenceRouter);
+app.use('/user-challenges', userChallengeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

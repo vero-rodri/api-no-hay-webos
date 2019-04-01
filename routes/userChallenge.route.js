@@ -4,10 +4,10 @@ const userChallengesController = require('../controllers/userChallenges.controll
 const secure = require('../middlewares/secure.mid');
 const parser = require('../configs/storage.config');
 
-router.get('/:challengeId/user-challenges/', secure.isAuthenticated, userChallengesController.list);
-router.post('/:challengeId/user-challenges/', secure.isAuthenticated, userChallengesController.create)
-router.get('/:challengeId/user-challenges/:id', secure.isAuthenticated, userChallengesController.detail);
-router.delete('/:challengeId/user-challenges/:id', secure.isAuthenticated, secure.canDelete, userChallengesController.delete)
+router.get('/', secure.isAuthenticated, userChallengesController.list);
+// router.post('/:challengeId/user-challenges/', secure.isAuthenticated, userChallengesController.create)
+// router.get('/:challengeId/user-challenges/:id', secure.isAuthenticated, userChallengesController.detail);
+// router.delete('/:challengeId/user-challenges/:id', secure.isAuthenticated, secure.canDelete, userChallengesController.delete)
 
 
 

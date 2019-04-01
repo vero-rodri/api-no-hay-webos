@@ -5,18 +5,18 @@ const bcrypt = require('bcrypt');
 const UserSchema = new mongoose.Schema({
   nickName: {
     type: String,
-    required: true,
-    unique: true
+    required: [true, 'user_required'],
+    unique: [true, 'nickName_unique']
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
+    required: [true, 'email_required'],
+    unique: [true, 'email_unique'],
     match: constants.EMAIL_PATTERN
   },
   password: {
     type: String,
-    required: true,
+    required: [true, 'password_required'],
     match: constants.PASSWORD_PATTERN
   },
   avatarURL: {

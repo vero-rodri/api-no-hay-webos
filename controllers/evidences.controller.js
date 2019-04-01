@@ -2,13 +2,13 @@ const createError = require('http-errors')
 const Evidence = require('../models/evidence.model')
 
 module.exports.list = (req, res, next) => {
-  console.log("entro en listar evidencias con ",req.params)
   Evidence.find({ userChallengeId: req.params.userChallengeId })
     .then(evidences => res.status(200).json(evidences))
     .catch(next)
 }
 
 module.exports.create = (req, res, next) => {
+  console.log('entro en el controller de EvidenceCreate')
   const evidence = new Evidence({ ...req.body, userChallengeId: req.params.userChallengeId });
   if (req.file) {
     evidence.file = req.file.secure_url;

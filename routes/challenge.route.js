@@ -7,7 +7,5 @@ const parser = require('../configs/storage.config');
 router.get('/', secure.isAuthenticated, challengesController.list)
 router.post('/', secure.isAuthenticated, parser.single('fileChallenge'), challengesController.create)
 router.get('/:id', secure.isAuthenticated, challengesController.detail)
-//router.post('/:id', secure.isAuthenticated, challengesController.createUserChallenge)
-//router.delete('/:id', secure.isAuthenticated, secure.canDelete, challengesController.deleteUserChallenge)
 
 module.exports = router;

@@ -64,7 +64,7 @@ const challengeSchema = new mongoose.Schema({
 const punctualChallengeSchema = new mongoose.Schema({
   date: {
     type: Date,
-    required: true,
+    required: [true, 'date_required']
   }
 }, {
   discriminatorKey: 'kind',
@@ -73,12 +73,12 @@ const punctualChallengeSchema = new mongoose.Schema({
 const periodicChallengeSchema = new mongoose.Schema({
   periodicity: {
     type: Number,
-    required: true,
+    required: [true, 'periodicity_required'],
     maxlength: 30
   },
   duration : {
     type: Number,
-    required: true,
+    required: [true, 'duration_required'],
     maxlength: 365
   }
 }, {
@@ -88,7 +88,7 @@ const periodicChallengeSchema = new mongoose.Schema({
 const expirationChallengeSchema = new mongoose.Schema({
   duration : {
     type: Number,
-    required: true,
+    required: [true, 'duration_required'],
     maxlength: 365
   }
 }, {

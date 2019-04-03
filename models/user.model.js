@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema({
   followed : {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'User'
+  },
+  challengesLiked: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Challenge'
   }
 }, {
   timestamps: true,

@@ -8,7 +8,10 @@ module.exports.list = (req, res, next) => {
     .populate('challengeId')
     .populate('userId')
     .populate('evidences')
-    .then(userChallenges => res.status(200).json(userChallenges))
+    .then(userChallenges => {
+      let userChallengesWithEvidences = userChallenges
+        .filter(userChallenge => userChallenge.evidences.length)
+      return res.status(200).json(userChallengesWithEvidences)
+    })
     .catch(next)
 }
-

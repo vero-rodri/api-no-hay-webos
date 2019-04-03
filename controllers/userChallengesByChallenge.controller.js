@@ -18,6 +18,7 @@ module.exports.detail = (req, res, next) => {
 
 
 module.exports.create = (req, res, next) => {
+  console.log("user:", req.user.id);
   const userChallenge = new UserChallenge({
     challengeId: req.params.challengeId,
     userId: req.user.id

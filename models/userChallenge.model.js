@@ -4,11 +4,13 @@ const Evidence = require('./evidence.model');
 const userChallengeSchema = new mongoose.Schema({
   challengeId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Challenge'
+    ref: 'Challenge',
+    required: true
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
   isFinished: {
     type: Boolean,
@@ -52,7 +54,7 @@ userChallengeSchema.virtual('evidences', {
   options: { sort: { createdAt: -1 }}
 })
 
-userChallengeSchema.index({userId: 1});
+userChallengeSchema.index({userId: 1, challengeId: 1}, { unique: true });
 
 const UserChallenge = mongoose.model('UserChallenge', userChallengeSchema);
 

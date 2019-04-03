@@ -1,6 +1,5 @@
 const createError = require('http-errors');
 const UserChallenge = require('../models/userChallenge.model');
-//const Evidence = require('../models/evidence.model');
 
 module.exports.list = (req, res, next) => {
   console.log("ENTRO EN LIST");

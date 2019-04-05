@@ -47,7 +47,7 @@ module.exports.detail = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.getUserSession = (req, res, next) => {
+module.exports.getSession = (req, res, next) => {
   User.findById(req.user.id)
     .then(user => res.status(200).json(user))
     .catch(next)

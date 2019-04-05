@@ -71,7 +71,8 @@ module.exports.addToLikes = (req, res, next) => {
           return Challenge.findByIdAndUpdate(req.params.id, {
             $inc: {likes: 1}
             }, {new: true})
-              .then(challenge => res.json({itemsLiked: user.challengesLiked, likes: challenge.likes}))
+             .then(challenge => res.json({itemsLiked: user.challengesLiked, likes: challenge.likes}))
+
         })
     })
     .catch(next);
@@ -93,7 +94,7 @@ module.exports.removeFromLikes = (req, res, next) => {
           return Challenge.findByIdAndUpdate(req.params.id, {
             $inc: {likes: -1}
             }, {new: true})
-              .then(challenge => res.json({itemsLiked: user.challengesLiked, likes:challenge.likes}))  
+              .then(challenge => res.json({itemsLiked: user.challengesLiked, likes: challenge.likes}))
         })    
     })
     .catch(next)

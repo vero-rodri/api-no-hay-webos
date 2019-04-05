@@ -58,7 +58,7 @@ const ObjectIdInArray = (objId, arr) => {
 
 
 module.exports.addToLikes = (req, res, next) => {
-
+  console.log("add like a challlenge...")
   User.findById(req.user.id)
     .then(user => {
       if (!ObjectIdInArray(req.params.id, user.challengesLiked)) {
@@ -79,7 +79,7 @@ module.exports.addToLikes = (req, res, next) => {
 
 
 module.exports.removeFromLikes = (req, res, next) => {
- 
+  console.log("remove like a challlenge...") 
   User.findById(req.user.id)
     .then(user => {
       if (ObjectIdInArray(req.params.id, user.challengesLiked)) {

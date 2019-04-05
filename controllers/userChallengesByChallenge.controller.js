@@ -2,12 +2,12 @@ const createError = require('http-errors');
 const UserChallenge = require('../models/userChallenge.model');
 const Evidence = require('../models/evidence.model');
 
+
 module.exports.listByChallenge = (req, res, next) => {
   UserChallenge.find({ userId: req.user.id })
     .then(userChallenges => res.status(200).json(userChallenges))
     .catch(next)
 }
-
 
 module.exports.detail = (req, res, next) => {
   UserChallenge.findById(req.params.id)

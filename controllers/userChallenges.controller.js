@@ -3,7 +3,7 @@ const UserChallenge = require('../models/userChallenge.model');
 const User = require('../models/user.model')
 
 
-module.exports.list = (req, res, next) => {
+module.exports.listFinished = (req, res, next) => {
   UserChallenge.find({isFinished: true})
     .populate('challengeId')
     .populate('userId')

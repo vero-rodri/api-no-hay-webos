@@ -17,12 +17,21 @@ module.exports.detail = (req, res, next) => {
     .catch(next)
 }
 
+module.exports.AddParticipanttoChallenge = (challengeId) => {
+
+  Challenge.findByIdAdnUpdate(challengeId, 
+    { $inc: {participants: 1}}, {new: true})
+    .then (() => res.status(204).json())
+    .catch(next)
+}
 
 module.exports.create = (req, res, next) => {
   const userChallenge = new UserChallenge({
     challengeId: req.params.challengeId,
     userId: req.user.id
   })
+
+
 
   userChallenge.save()
     .then( userChallenge => res.status(201).json(userChallenge))

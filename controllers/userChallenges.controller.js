@@ -1,11 +1,9 @@
 const createError = require('http-errors');
 const UserChallenge = require('../models/userChallenge.model');
 const User = require('../models/user.model')
-//const Evidence = require('../models/evidence.model');
-//const { ObjectIdInArray } = require ('./challenges.controller.js');
+
 
 module.exports.list = (req, res, next) => {
-  console.log("ENTRO EN LIST");
   UserChallenge.find({isFinished: true})
     .populate('challengeId')
     .populate('userId')
@@ -18,6 +16,16 @@ module.exports.list = (req, res, next) => {
     .catch(next)
 }
 
+
+module.exports.detail = (req, res, next) => {
+  UserChallenge.findById(req.params.id)
+    .populate('challengeId')
+    .populate('evidences')
+    .populate('owner')
+    .then(userChallenge => res.status(200).json(userChallenge))
+    .catch(next)
+
+  
 const ObjectIdInArray = (objId, arr) => {
   let arrAux = arr.map(objId => JSON.stringify(objId))
   let objIdAux = JSON.stringify(objId);
@@ -41,7 +49,6 @@ module.exports.addToLikes = (req, res, next) => {
             $inc: {likes: 1}
             }, {new: true})
               .then(userChallenge => res.json({itemsLiked: user.userChallengesLiked, likes: userChallenge.likes}))
-
         })
     })
     .catch(next);

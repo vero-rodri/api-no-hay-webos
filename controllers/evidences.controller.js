@@ -3,7 +3,10 @@ const Evidence = require('../models/evidence.model')
 
 module.exports.list = (req, res, next) => {
   Evidence.find({ userChallengeId: req.params.userChallengeId })
-    .then(evidences => res.status(200).json(evidences))
+    .then(evidences => {
+      console.log("las evidencias del controller son: ", evidences)
+      res.status(200).json(evidences)
+    })
     .catch(next)
 }
 

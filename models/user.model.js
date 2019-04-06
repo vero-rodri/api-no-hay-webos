@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema({
   challengesLiked: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Challenge'
+  },
+  userChallengesLiked: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'UserChallenge'
   }
 }, {
   timestamps: true,

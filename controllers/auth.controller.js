@@ -46,3 +46,15 @@ module.exports.logout = (req, res, next) => {
   req.logout();
   res.status(204, 'User logout correctly').json()
 }
+
+module.exports.detail = (req, res, next) => {
+  User.findById(req.params.userId)
+    .then(user => res.status(200).json(user))
+    .catch(next)
+}
+
+module.exports.getSession = (req, res, next) => {
+  User.findById(req.user.id)
+    .then(user => res.status(200).json(user))
+    .catch(next)
+}

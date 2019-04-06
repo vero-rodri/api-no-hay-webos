@@ -24,7 +24,7 @@ module.exports.detail = (req, res, next) => {
     .populate('owner')
     .then(userChallenge => res.status(200).json(userChallenge))
     .catch(next)
-
+}
   
 const ObjectIdInArray = (objId, arr) => {
   let arrAux = arr.map(objId => JSON.stringify(objId))
@@ -86,4 +86,3 @@ module.exports.addToViews = (req, res, next) => {
       .then(userChallenge => res.json(userChallenge))
       .catch(next)
 }
-

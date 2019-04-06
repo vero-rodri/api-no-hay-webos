@@ -1,9 +1,7 @@
 const createError = require('http-errors');
 const UserChallenge = require('../models/userChallenge.model');
-//const Evidence = require('../models/evidence.model');
 
 module.exports.list = (req, res, next) => {
-  console.log("ENTRO EN LIST");
   UserChallenge.find({isFinished: true})
     .populate('challengeId')
     .populate('userId')
@@ -15,3 +13,13 @@ module.exports.list = (req, res, next) => {
     })
     .catch(next)
 }
+
+module.exports.detail = (req, res, next) => {
+  UserChallenge.findById(req.params.id)
+    .populate('challengeId')
+    .populate('evidences')
+    .populate('owner')
+    .then(userChallenge => res.status(200).json(userChallenge))
+    .catch(next)
+}
+

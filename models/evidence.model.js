@@ -5,16 +5,12 @@ const evidenceSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UserChallenge'
   },
-  title: {
-    type: String,
-    required: [true, 'title_required']
-  },
-  description: {
+  comments: {
     type: String
   },
   file: {
     type: String,
-    required: true
+    required: [true, 'file_required']
   }
 }, {
   timestamps: true,

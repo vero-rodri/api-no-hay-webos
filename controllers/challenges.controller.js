@@ -45,6 +45,7 @@ module.exports.create = (req, res, next) => {
 module.exports.detail = (req, res, next) => {
   Challenge.findById(req.params.id)
     .populate('usersChallenge')
+    .populate('owner')
     .then(challenge => res.status(200).json(challenge))
     .catch(next)
 }

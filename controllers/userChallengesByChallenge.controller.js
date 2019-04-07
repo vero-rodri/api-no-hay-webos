@@ -3,8 +3,10 @@ const UserChallenge = require('../models/userChallenge.model');
 const Evidence = require('../models/evidence.model');
 
 
-module.exports.listByChallenge = (req, res, next) => {
-  UserChallenge.find({ userId: req.user.id })
+module.exports.listFinishedByChallenge = (req, res, next) => {
+  UserChallenge.find({ challengeId: req.params.challengeId , isFinished: true})
+  .populate('evidences')
+  .populate('userId')
     .then(userChallenges => res.status(200).json(userChallenges))
     .catch(next)
 }
@@ -17,22 +19,12 @@ module.exports.detail = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.AddParticipanttoChallenge = (challengeId) => {
-
-  Challenge.findByIdAdnUpdate(challengeId, 
-    { $inc: {participants: 1}}, {new: true})
-    .then (() => res.status(204).json())
-    .catch(next)
-}
 
 module.exports.create = (req, res, next) => {
   const userChallenge = new UserChallenge({
     challengeId: req.params.challengeId,
     userId: req.user.id
   })
-
-
-
   userChallenge.save()
     .then( userChallenge => res.status(201).json(userChallenge))
     .catch(next)

@@ -16,6 +16,11 @@ module.exports.listFinished = (req, res, next) => {
     .catch(next)
 }
 
+module.exports.update = (req, res, next) => {
+  UserChallenge.findByIdAndUpdate(req.params.id, { isFinished: true })
+    .then(() => res.status(204).json())
+    .catch(next)
+}
 
 module.exports.detail = (req, res, next) => {
   UserChallenge.findById(req.params.id)

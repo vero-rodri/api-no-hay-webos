@@ -1,6 +1,7 @@
 const passport = require('passport');
 const createError = require('http-errors')
 const User = require('../models/user.model');
+const UserChallenge = require('../models/userChallenge.model');
 
 module.exports.register = (req, res, next) => {
   User.findOne({email: req.body.email})
@@ -58,3 +59,4 @@ module.exports.getSession = (req, res, next) => {
     .then(user => res.status(200).json(user))
     .catch(next)
 }
+

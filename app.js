@@ -11,6 +11,7 @@ require('./configs/passport.config');
 require('./configs/db.config');
 
 const authRouter = require('./routes/auth.route');
+const userRouter = require('./routes/user.route');
 const challengeRouter = require('./routes/challenge.route');
 const userChallengeRouter = require('./routes/userChallenge.route')
 const userChallengeByChallengeRouter = require('./routes/userChallengeByChallenge.route');
@@ -30,6 +31,7 @@ app.use(passport.session());
 
 app.use('/user-challenges', userChallengeRouter);
 app.use('/', authRouter);
+app.use('/users', userRouter);
 app.use('/challenges', challengeRouter);
 app.use('/challenges', userChallengeByChallengeRouter);
 app.use('/user-challenges', evidenceRouter);

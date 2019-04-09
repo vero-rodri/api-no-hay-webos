@@ -96,7 +96,7 @@ const expirationChallengeSchema = new mongoose.Schema({
 })
 
 
-challengeSchema.virtual('usersChallenge', {
+challengeSchema.virtual('userChallenges', {
   ref: UserChallenge.modelName,
   localField: '_id',
   foreignField: 'challengeId',

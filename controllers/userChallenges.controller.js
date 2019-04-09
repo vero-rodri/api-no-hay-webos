@@ -17,7 +17,7 @@ module.exports.listFinished = (req, res, next) => {
 }
 
 module.exports.update = (req, res, next) => {
-  UserChallenge.findByIdAndUpdate(req.params.id, { isFinished: true })
+  UserChallenge.findByIdAndUpdate(req.params.id, { isFinished: req.body.isFinished })
     .then(() => res.status(204).json())
     .catch(next)
 }

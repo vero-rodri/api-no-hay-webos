@@ -5,7 +5,7 @@ const secure = require('../middlewares/secure.mid');
 
 router.get('/', secure.isAuthenticated, userChallengesController.listFinished);
 router.get('/:id', secure.isAuthenticated, userChallengesController.detail);
-router.put('/:id', secure.isAuthenticated, userChallengesController.update);
+router.post('/:id', secure.isAuthenticated, userChallengesController.update);
 router.post('/:id/likes', secure.isAuthenticated, userChallengesController.addToLikes);
 router.delete('/:id/likes', secure.isAuthenticated, userChallengesController.removeFromLikes);
 router.post('/:id/views', secure.isAuthenticated, userChallengesController.addToViews);

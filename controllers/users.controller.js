@@ -5,6 +5,12 @@ const UserChallenge = require('../models/userChallenge.model');
 const { Challenge } = require('../models/challenge.model')
 
 
+module.exports.list = (req, res, next) => {
+  User.find({})
+    .then(users => res.status(200).json(users))
+    .catch(next)
+}
+
 
 module.exports.listUserChallengesByUser = (req, res, next) => {
   console.log("entro en el uC by user con", req.params.userId);

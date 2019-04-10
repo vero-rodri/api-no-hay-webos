@@ -26,6 +26,13 @@ const userChallengeSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  isPending: {
+    type: Boolean,
+    default: false
+  },
+  message: {
+    type: String, 
+  },
   location: {
     type: {
       type: String,

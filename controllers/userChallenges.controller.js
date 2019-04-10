@@ -27,6 +27,7 @@ module.exports.detail = (req, res, next) => {
     .populate('challengeId')
     .populate('evidences')
     .populate('owner')
+    .populate('userId')
     .then(userChallenge => res.status(200).json(userChallenge))
     .catch(next)
 }

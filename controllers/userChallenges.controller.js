@@ -91,3 +91,31 @@ module.exports.addToViews = (req, res, next) => {
       .then(userChallenge => res.json(userChallenge))
       .catch(next)
 }
+
+module.exports.createUserChallengesByNotifications = (req, res, next) => {
+  console.log("el req body lleva =>" , req.body)
+  const {usersId, challengeId, message} = req.body;
+  const promises = [];
+  let userChallenge;
+  usersId.forEach(userId => {
+    userChallenge = new UserChallenge({
+      userId: userId,
+      challengeId: challengeId,
+      isPending: true,
+      message: message
+    });
+    promises.push(userChallenge.save());
+  })
+  Promise.all(promises)
+    .then(([...responses]) => res.status(201).json())
+    .catch(next)
+}
+
+module.exports.listPending = (req, res, next) => {
+  UserChallenge.find({ userId: req.user.id })
+    .then(userChallenges => {
+      // console.log("los userchLlenges pendientes son =>", userChallengesPending)
+      return res.json(userChallenges.filter(userChallenge => userChallenge.isPending));
+    })
+    .catch(next);
+}

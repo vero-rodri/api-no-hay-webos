@@ -98,25 +98,57 @@ module.exports.createUserChallengesByNotifications = (req, res, next) => {
   const {usersId, challengeId, message} = req.body;
   const promises = [];
   let userChallenge;
-  usersId.forEach(userId => {
-    userChallenge = new UserChallenge({
-      userId: userId,
-      challengeId: challengeId,
-      isPending: true,
-      message: message
-    });
-    promises.push(userChallenge.save());
-  })
+
+  UserChallenge.find({ challengeId: challengeId } )
+    .then(userChallenges => {
+      const usersIdInUserChallenges = userChallenges.map(userChallenge => userChallenge.userId);
+      console.log ("con el challenge ", challengeId, " he encontrado los siguientes UC ", usersIdInUserChallenges);
+        usersId.forEach(userId => {
+          console.log ("el userId es ", userId)
+          if (!ObjectIdInArray(userId, usersIdInUserChallenges)) {
+            console.log(userId, " no incluido...guardo UC")
+            userChallenge = new UserChallenge({
+              sender: req.user.id,
+              userId: userId,
+              challengeId: challengeId,
+              isPending: true,
+              message: message
+            });
+            promises.push(userChallenge.save());
+          } else {
+            console.log(userId, " incluido....me lo salto!")
+          }
+        })
+      })
+    .catch(next);
+
   Promise.all(promises)
     .then(([...responses]) => res.status(201).json())
     .catch(next)
 }
 
-module.exports.listPending = (req, res, next) => {
+
+module.exports.listPendingBySession = (req, res, next) => {
   UserChallenge.find({ userId: req.user.id })
+    .populate('sender')
+    .populate('challengeId')
     .then(userChallenges => {
       // console.log("los userchLlenges pendientes son =>", userChallengesPending)
       return res.json(userChallenges.filter(userChallenge => userChallenge.isPending));
     })
     .catch(next);
+}
+
+
+module.exports.delete = (req, res, next) => {
+  console.log("Eliminando UC...")
+  UserChallenge.findByIdAndDelete(req.params.id)
+    .then(userChallenge => res.status(204).json(userChallenge))
+    .catch(next);
+}
+
+module.exports.accept = (req, res, next) => {
+  UserChallenge.findByIdAndUpdate(req.params.id, { isPending: false })
+    .then(userChallenge => res.status(200).json())
+    .catch(next)
 }

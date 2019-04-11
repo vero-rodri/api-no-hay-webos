@@ -33,6 +33,10 @@ const userChallengeSchema = new mongoose.Schema({
   message: {
     type: String, 
   },
+  sender: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   location: {
     type: {
       type: String,

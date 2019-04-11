@@ -34,8 +34,8 @@ app.use('/', authRouter);
 app.use('/users', userRouter);
 app.use('/challenges', challengeRouter);
 app.use('/challenges', userChallengeByChallengeRouter);
-app.use('/user-challenges', evidenceRouter);
 app.use('/user-challenges', userChallengeRouter);
+app.use('/user-challenges', evidenceRouter);
 
 
 // catch 404 and forward to error handler

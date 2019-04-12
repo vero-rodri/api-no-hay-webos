@@ -3,6 +3,17 @@ const UserChallenge = require('../models/userChallenge.model');
 const Evidence = require('../models/evidence.model');
 
 
+module.exports.listByChallenge = (req, res, next) => {
+  UserChallenge.find({ challengeId: req.params.challengeId })
+  .populate('userId')
+    .then(userChallenges => {
+      console.log("\n\ndevuelvo estos uC en el API", userChallenges)
+      res.status(200).json(userChallenges)
+    })
+    .catch(next)
+}
+
+
 module.exports.listFinishedByChallenge = (req, res, next) => {
   UserChallenge.find({ challengeId: req.params.challengeId , isFinished: true})
   .populate('evidences')
@@ -17,6 +28,13 @@ module.exports.detail = (req, res, next) => {
     .populate('evidences')
     .then(userChallenge => res.status(200).json(userChallenge))
     .catch(next)
+}
+
+
+const ObjectIdInArray = (objId, arr) => {
+  let arrAux = arr.map(objId => JSON.stringify(objId))
+  let objIdAux = JSON.stringify(objId);
+  return (arrAux.includes(objIdAux))
 }
 
 

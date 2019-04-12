@@ -37,15 +37,15 @@ const userChallengeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  location: {
-    type: {
-      type: String,
-      default: 'Point'
-    },
-    coordinates: {
-      type: [Number]
-    }
-  }
+  // location: {
+  //   type: {
+  //     type: String,
+  //     default: 'Point'
+  //   },
+  //   coordinates: {
+  //     type: [Number]
+  //   }
+  // }
 }, {
   timestamps: true,
   toJSON: {

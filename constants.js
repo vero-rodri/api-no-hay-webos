@@ -5,7 +5,9 @@ module.exports.CATEGORIES_CHALLENGE = ['SPORTS', 'ART', 'FUN', 'SOCIAL'];
 module.exports.SALT_WORK_FACTOR = 10;
 module.exports.MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/no-hay-webos';
 module.exports.COOKIE_EXP = 60 * 60 * 24 * 1000;
-module.exports.ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:3000']
+
+// module.exports.ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
+//   ? process.env.ALLOWED_ORIGINS.split(',')
+//   : ['http://localhost:3000']
+// module.exports.ALLOWED_ORIGINS = 'http://localhost:3000'
 

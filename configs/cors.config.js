@@ -1,3 +1,4 @@
+const cors = require('cors')
 const createError = require('http-errors');
 const cors = require('cors');
 const constants = require('../constants');
@@ -5,6 +6,8 @@ const originsAllowed = process.env.CORS_ORIGINS || [
   'http://localhost:3000'
  ];
 
+
+const allowedOrigins = [process.env.ALLOWED_ORIGINS || 'http://localhost:3000']
 module.exports = cors({
   origin: (origin, next) => {
     const allowed = !origin || originsAllowed.indexOf(origin) !== -1;

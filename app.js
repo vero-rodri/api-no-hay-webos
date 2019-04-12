@@ -16,6 +16,8 @@ const challengeRouter = require('./routes/challenge.route');
 const userChallengeRouter = require('./routes/userChallenge.route')
 const userChallengeByChallengeRouter = require('./routes/userChallengeByChallenge.route');
 const evidenceRouter = require('./routes/evidence.route');
+const emailRouter = require('./routes/email.route');
+
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use('/challenges', challengeRouter);
 app.use('/challenges', userChallengeByChallengeRouter);
 app.use('/user-challenges', userChallengeRouter);
 app.use('/user-challenges', evidenceRouter);
+app.use('/emails', emailRouter);
+
 
 
 // catch 404 and forward to error handler

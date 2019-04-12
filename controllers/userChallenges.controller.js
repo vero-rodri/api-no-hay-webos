@@ -152,3 +152,4 @@ module.exports.accept = (req, res, next) => {
     .then(userChallenge => res.status(200).json())
     .catch(next)
 }
+

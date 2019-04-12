@@ -39,3 +39,14 @@ module.exports.delete = (req, res, next) => {
     })
     .catch(next)
 }
+
+module.exports.listByChallenge = (req, res, next) => {
+  UserChallenge.find({ challengeId: req.params.challengeId })
+  .populate('userId')
+    .then(userChallenges => {
+      console.log("\n\ndevuelvo estos uC en el API", userChallenges)
+      res.status(200).json(userChallenges)
+    })
+    .catch(next)
+ }
+

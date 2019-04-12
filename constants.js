@@ -8,3 +8,4 @@ module.exports.COOKIE_EXP = 60 * 60 * 24 * 1000;
 module.exports.ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',')
   : ['http://localhost:3000']
+

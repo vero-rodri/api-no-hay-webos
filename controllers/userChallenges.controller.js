@@ -140,9 +140,9 @@ module.exports.listPendingBySession = (req, res, next) => {
 }
 
 
-module.exports.delete = (req, res, next) => {
-  console.log("Eliminando UC...")
-  UserChallenge.findByIdAndDelete(req.params.id)
+module.exports.reject = (req, res, next) => {
+  console.log("Rechazando UC...")
+  UserChallenge.findByIdAndUpdate(req.params.id, {isRejected: true, isPending: false})
     .then(userChallenge => res.status(204).json(userChallenge))
     .catch(next);
 }

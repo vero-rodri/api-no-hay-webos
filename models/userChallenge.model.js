@@ -30,6 +30,10 @@ const userChallengeSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  isRejected: {
+    type: Boolean, 
+    default: false
+  },
   message: {
     type: String, 
   },

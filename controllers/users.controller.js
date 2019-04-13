@@ -49,3 +49,9 @@ module.exports.listChallengesByUser = (req, res, next) => {
     .then(challenges => res.status(200).json(challenges))
     .catch(next)
 }
+
+module.exports.getUser = (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user => res.status(201).json(user))
+    .catch(next)
+}

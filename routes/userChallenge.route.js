@@ -3,7 +3,7 @@ const router = express.Router();
 const userChallengesController = require('../controllers/userChallenges.controller');
 const secure = require('../middlewares/secure.mid');
 
-router.get('/', secure.isAuthenticated, userChallengesController.listFinished);
+router.get('/finished', secure.isAuthenticated, userChallengesController.listFinished);
 router.get('/pending-by-session', secure.isAuthenticated, userChallengesController.listPendingBySession);
 router.get('/:id', secure.isAuthenticated, userChallengesController.detail);
 router.post('/create-notifications', secure.isAuthenticated, userChallengesController.createUserChallengesByNotifications);

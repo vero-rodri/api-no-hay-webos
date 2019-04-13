@@ -11,6 +11,15 @@ module.exports.listFinishedByChallenge = (req, res, next) => {
     .catch(next)
 }
 
+// module.exports.listInProcessByChallenge = (req, res, next) => {
+//   UserChallenge.find({ challengeId: req.params.challengeId, isFinished: false, isRejected: false, isPending: false})
+//     .then(userChallengesInProcess => {
+//       return res.status(200).json(userChallengesInProcess)
+//     })
+//     .catch(next)
+// }
+
+
 
 module.exports.detail = (req, res, next) => {
   UserChallenge.findById(req.params.id)

@@ -68,7 +68,7 @@ userChallengeSchema.virtual('evidences', {
 })
 
 userChallengeSchema.index({userId: 1, challengeId: 1}, {unique: true});
-userChallengeSchema.index({userId: 1});
+// userChallengeSchema.index({userId: 1});
 
 const UserChallenge = mongoose.model('UserChallenge', userChallengeSchema);
 
